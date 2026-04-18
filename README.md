@@ -21,7 +21,7 @@ Independent Researcher, Incheon, Republic of Korea
 ## Repository Structure
 
 ```
-ed8/
+existence-equation/
 ├── act1/          Electromagnetism simulations
 ├── act2/          Gravity simulations
 ├── act3_4/        Strong force + Hydrogen atom + H₂ molecule simulations
