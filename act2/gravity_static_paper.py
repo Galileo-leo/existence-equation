@@ -494,7 +494,7 @@ def main():
         "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
         "  Input:\n"
         "    3D lattice + linear springs\n"
-        "    (= ED restoration term −λΨ)\n\n"
+        "    (= ED restoration term +λΨ)\n\n"
         "  NOT input:\n"
         "    Riemann, Christoffel, GR,\n"
         "    Einstein equation\n\n"
