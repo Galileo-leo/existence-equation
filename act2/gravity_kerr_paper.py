@@ -214,8 +214,12 @@ def main():
             std_wr3 = np.std(product)
             cv = std_wr3 / mean_wr3 * 100
             print(f"  ω·r³ (r>2)      = {mean_wr3:.6f} ± {std_wr3:.6f} (CV={cv:.1f}%)")
-        
+
         solutions[n] = {'A': A, 'conv': conv, 'r': r, 'th': th, 'A0': A0}
+        if n > 0:
+            solutions[n]['mean_wr3'] = mean_wr3
+            solutions[n]['std_wr3'] = std_wr3
+            solutions[n]['cv'] = cv
     
     # Angular-momentum proxy: J ∝ n ∫ A² r² sin θ dr dθ (2π from φ integration);
     # ratios J/J₁ test linear scaling in n expected from winding.
@@ -287,8 +291,11 @@ def main():
               label=r'$\propto r^{-3}$ (Lense-Thirring)')
     ax.set_xlabel('$r$', fontsize=11)
     ax.set_ylabel(r'$\omega_{\rm FD}$', fontsize=11)
-    ax.set_title('(b) Frame dragging rate\n'
-                 r'$\omega \cdot r^3 = 0.947 \pm 0.072$ (CV=7.6%)',
+    _m = solutions[1]['mean_wr3']
+    _s = solutions[1]['std_wr3']
+    _cv = solutions[1]['cv']
+    ax.set_title(f'(b) Frame dragging rate\n'
+                 f'$\\omega \\cdot r^3 = {_m:.3f} \\pm {_s:.3f}$ (CV={_cv:.1f}%)',
                  fontsize=11, fontweight='bold')
     ax.legend(fontsize=9)
     ax.grid(True, alpha=0.2)
@@ -302,8 +309,8 @@ def main():
         mask = r > 1.0
         ax.plot(r[mask], product[mask], color=colors[n], lw=2.5,
                 label=names[n])
-    ax.axhline(0.947, color='k', ls='--', lw=1.5, alpha=0.5,
-               label=r'$\omega r^3 = 0.947$')
+    ax.axhline(solutions[1]['mean_wr3'], color='k', ls='--', lw=1.5, alpha=0.5,
+               label=f'$\\omega r^3 = {solutions[1]["mean_wr3"]:.3f}$')
     ax.set_xlabel('$r$', fontsize=11)
     ax.set_ylabel(r'$\omega_{\rm FD} \cdot r^3$', fontsize=11)
     ax.set_title(r'(c) Lense-Thirring test: $\omega r^3 =$ const',
@@ -352,8 +359,8 @@ def main():
     print(f"  n=1: Kerr-like (vortex core at poles, frame dragging)")
     print(f"  n=2: Higher spin (deeper vortex)")
     print(f"\n  Frame dragging:")
-    print(f"    ω·r³ = 0.947 ± 0.072  (Lense-Thirring: ω ∝ 1/r³)")
-    print(f"    CV = 7.6%")
+    print(f"    ω·r³ = {solutions[1]['mean_wr3']:.3f} ± {solutions[1]['std_wr3']:.3f}  (Lense-Thirring: ω ∝ 1/r³)")
+    print(f"    CV = {solutions[1]['cv']:.1f}%")
     print(f"\n  Angular momentum:")
     print(f"    J/J₁ = {J_ratio[0]:.3f}, {J_ratio[1]:.3f}, {J_ratio[2]:.3f}")
     print(f"    Expected: 0, 1, 2")
