@@ -190,6 +190,8 @@ not a property of Hilbert space. 2 = unit vectors, √2 = diagonal of 2D optimiz
 
 ### `ep7/` — Josephson Effect: Gross-Pitaevskii as Low-Energy Limit of ED
 
+**DOI:** [10.5281/zenodo.19638426](https://doi.org/10.5281/zenodo.19638426)
+
 **Claim:** The Gross-Pitaevskii equation is the low-energy (non-relativistic) limit
 of the ED equation. The Josephson effect — DC current J = J_c sin(Δφ) and
 AC frequency dΔφ/dt ∝ Δμ — emerges directly from the ED equation with a
@@ -235,6 +237,7 @@ The algebra is not assumed. It is FORCED by the constraint.
 | EP IV: Non-Commutativity | [10.5281/zenodo.19329301](https://doi.org/10.5281/zenodo.19329301) |
 | EP V: Galaxy Rotation Curves | [10.5281/zenodo.19329315](https://doi.org/10.5281/zenodo.19329315) |
 | EP VI: Tsirelson Bound | [10.5281/zenodo.19329317](https://doi.org/10.5281/zenodo.19329317) |
+| EP VII: Josephson Effect | [10.5281/zenodo.19638426](https://doi.org/10.5281/zenodo.19638426) |
 
 ---
 
