@@ -32,7 +32,7 @@ existence-equation/
 ├── ep2/           Evidence Paper II  — FQHE topological degeneracy + anyon braiding
 ├── ep3/           Evidence Paper III — Helical quantum scars
 ├── ep4/           Evidence Paper IV  — Non-commutativity & algebra
-├── ep5/           Evidence Paper V   — Galaxy rotation curves
+├── ep5/           Evidence Paper V   — Dark matter as topological phase persistence
 ├── ep6/           Evidence Paper VI  — Tsirelson bound (Bell inequality)
 ├── ep7/           Evidence Paper VII — Josephson effect (GP as low-energy ED)
 │
@@ -163,19 +163,21 @@ quantization from geometry, not SU(2).
 |---|---|
 | `algebra_constraint_paper.py` | L=3–10; integer spectrum; random projection control (proves constraint specificity) |
 
-### `ep5/` — Galaxy Rotation Curves from ED
+### `ep5/` — Dark Matter as Topological Phase Persistence
 
 **DOI:** [10.5281/zenodo.19329315](https://doi.org/10.5281/zenodo.19329315)
 
 **Claim:** Flat rotation curves are a structural attractor of the ED equation.
-No dark matter. Phase gradient energy = "missing mass."
+No dark matter particle. No new field. No free parameter.
+Phase-gradient energy ½A²|∇Φ|² persists where amplitude energy |∇A|² has decayed
+— topological phase persistence is dark matter.
 
 | File | Description |
 |---|---|
-| `ep5_step2_single_vortex.py` | Single vortex evolution and profile measurement |
-| `ep5_step3_two_vortex.py` | Two-vortex interaction and energy analysis |
-| `ep5_step5_distributions.py` | Distribution analysis across parameter space |
-| `ep5_make_figure1_final.py` | Publication figure generation |
+| `ep5_step2_single_vortex.py` | Single vortex validation on 2048² grid: v_θ(r) = 1/r to 4-digit precision, winding conservation |
+| `ep5_step3_two_vortex.py` | Two-vortex amplitude-phase decoupling: (3A) annihilation (+1,−1), (3B) same-sign (+1,+1) → cores dissolve but winding +2 persists = dark matter |
+| `ep5_step5_distributions.py` | N=10 vortex distributions: uniform disk vs inverse-radial (σ∝1/r) → flat rotation curve (flatness 0.82) |
+| `ep5_make_figure1_final.py` | 4-panel publication figure from JSON data (300 dpi) |
 
 ### `ep6/` — Tsirelson Bound from Measurement Geometry
 
@@ -220,7 +222,7 @@ The algebra is not assumed. It is FORCED by the constraint.
 | II | 2D torus | NN exclusion + hop + Peierls | FQHE topological degeneracy, anyon braiding |
 | III | 2-leg ladder | Blockade + rung exclusion + flip | Helical scars, emergent chirality |
 | IV | 2-leg ladder | Same + projected operators | Non-commutativity, integer spectrum |
-| V | 2D continuum | ED equation + expansion | Flat rotation curves, f_phase ~ 52% |
+| V | 2048² continuum | ED vortex + damped relaxation | Amplitude-phase decoupling → dark matter; flat rotation curve (flatness 0.82) |
 | VI | Measurement | Binary outcomes + shared field | Tsirelson bound 2√2 |
 | VII | 1D continuum | ED equation + barrier potential | Josephson effect; GP as low-energy limit |
 
@@ -235,7 +237,7 @@ The algebra is not assumed. It is FORCED by the constraint.
 | EP II: FQHE Topological Degeneracy | [10.5281/zenodo.19329295](https://doi.org/10.5281/zenodo.19329295) |
 | EP III: Helical Rydberg Scars | [10.5281/zenodo.19329297](https://doi.org/10.5281/zenodo.19329297) |
 | EP IV: Non-Commutativity | [10.5281/zenodo.19329301](https://doi.org/10.5281/zenodo.19329301) |
-| EP V: Galaxy Rotation Curves | [10.5281/zenodo.19329315](https://doi.org/10.5281/zenodo.19329315) |
+| EP V: Dark Matter (Topological Phase Persistence) | [10.5281/zenodo.19329315](https://doi.org/10.5281/zenodo.19329315) |
 | EP VI: Tsirelson Bound | [10.5281/zenodo.19329317](https://doi.org/10.5281/zenodo.19329317) |
 | EP VII: Josephson Effect | [10.5281/zenodo.19638426](https://doi.org/10.5281/zenodo.19638426) |
 
