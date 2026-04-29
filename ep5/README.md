@@ -1,6 +1,6 @@
 # EP V — Dark Matter as Topological Phase Persistence
 
-**DOI:** [10.5281/zenodo.19329315](https://doi.org/10.5281/zenodo.19329315)
+**Concept DOI:** [10.5281/zenodo.19329314](https://doi.org/10.5281/zenodo.19329314)
 
 **Equation:** `(1/c²)Ψ̈ = ∇²Ψ + λΨ − α|Ψ|²Ψ`
 

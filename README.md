@@ -13,8 +13,8 @@ assumptions, no fitting parameters, no standard-model machinery.
 (jaeahn.shin.official@gmail.com)
 Independent Researcher, Incheon, Republic of Korea
 
-**Main Paper DOI:**
-[10.5281/zenodo.18639317](https://doi.org/10.5281/zenodo.18639317)
+**Main Paper Concept DOI:**
+[10.5281/zenodo.18639316](https://doi.org/10.5281/zenodo.18639316)
 
 ---
 
@@ -114,11 +114,12 @@ See `act3_4/README.md` for the full branching pipeline and
 ## Evidence Papers (EP Series)
 
 Each EP directory contains simulation code (`.py`) and related documentation.
-All EP papers are published on Zenodo with DOIs.
+All EP papers are published on Zenodo with concept DOIs, which always resolve
+to the latest version.
 
 ### `ep1/` — PXP Quantum Scars from Constraint
 
-**DOI:** [10.5281/zenodo.19327777](https://doi.org/10.5281/zenodo.19327777)
+**Concept DOI:** [10.5281/zenodo.19327776](https://doi.org/10.5281/zenodo.19327776)
 
 **Claim:** 1D chain + NN exclusion + single-site flip = PXP Hamiltonian.
 No formula written by hand. Quantum many-body scars emerge automatically.
@@ -129,7 +130,7 @@ No formula written by hand. Quantum many-body scars emerge automatically.
 
 ### `ep2/` — FQHE Topological Degeneracy + Anyon Braiding from Constraint
 
-**DOI:** [10.5281/zenodo.19329295](https://doi.org/10.5281/zenodo.19329295)
+**Concept DOI:** [10.5281/zenodo.19329294](https://doi.org/10.5281/zenodo.19329294)
 
 **Claim:** 2D torus + NN exclusion + Peierls phase = fractional quantum Hall effect.
 No Laughlin wavefunction. No Coulomb interaction. No composite fermion.
@@ -142,7 +143,7 @@ Anyon braiding phases (2π/q) emerge from Wilson loop on constrained Hilbert spa
 
 ### `ep3/` — Helical Quantum Scars from Constraint
 
-**DOI:** [10.5281/zenodo.19329297](https://doi.org/10.5281/zenodo.19329297)
+**Concept DOI:** [10.5281/zenodo.19329296](https://doi.org/10.5281/zenodo.19329296)
 
 **Claim:** 2-leg ladder + blockade + rung exclusion + flip = helical scars
 with emergent chirality (±q degeneracy). No symmetry imposed.
@@ -153,7 +154,7 @@ with emergent chirality (±q degeneracy). No symmetry imposed.
 
 ### `ep4/` — Non-Commutativity from Constraint
 
-**DOI:** [10.5281/zenodo.19329301](https://doi.org/10.5281/zenodo.19329301)
+**Concept DOI:** [10.5281/zenodo.19329300](https://doi.org/10.5281/zenodo.19329300)
 
 **Claim:** Projected operators [O₀, O₁] ≠ 0 despite [X₀, X₁] = 0.
 Eigenvalues of i[O₀, O₁] are exactly integers: angular momentum
@@ -165,7 +166,7 @@ quantization from geometry, not SU(2).
 
 ### `ep5/` — Dark Matter as Topological Phase Persistence
 
-**DOI:** [10.5281/zenodo.19329315](https://doi.org/10.5281/zenodo.19329315)
+**Concept DOI:** [10.5281/zenodo.19329314](https://doi.org/10.5281/zenodo.19329314)
 
 **Claim:** Flat rotation curves are a structural attractor of the ED equation.
 No dark matter particle. No new field. No free parameter.
@@ -181,7 +182,7 @@ Phase-gradient energy ½A²|∇Φ|² persists where amplitude energy |∇A|² ha
 
 ### `ep6/` — Tsirelson Bound from Measurement Geometry
 
-**DOI:** [10.5281/zenodo.19329317](https://doi.org/10.5281/zenodo.19329317)
+**Concept DOI:** [10.5281/zenodo.19329316](https://doi.org/10.5281/zenodo.19329316)
 
 **Claim:** S_max = 2√2 is the geometry of binary discrete measurement,
 not a property of Hilbert space. 2 = unit vectors, √2 = diagonal of 2D optimization.
@@ -192,7 +193,7 @@ not a property of Hilbert space. 2 = unit vectors, √2 = diagonal of 2D optimiz
 
 ### `ep7/` — Josephson Effect: Gross-Pitaevskii as Low-Energy Limit of ED
 
-**DOI:** [10.5281/zenodo.19638426](https://doi.org/10.5281/zenodo.19638426)
+**Concept DOI:** [10.5281/zenodo.19638425](https://doi.org/10.5281/zenodo.19638425)
 
 **Claim:** The Gross-Pitaevskii equation is the low-energy (non-relativistic) limit
 of the ED equation. The Josephson effect — DC current J = J_c sin(Δφ) and
@@ -228,18 +229,21 @@ The algebra is not assumed. It is FORCED by the constraint.
 
 ---
 
-## Zenodo DOIs
+## Zenodo Concept DOIs
 
-| Paper | DOI |
-|---|---|
-| Main: The Existence Equation | [10.5281/zenodo.18639317](https://doi.org/10.5281/zenodo.18639317) |
-| EP I: PXP Quantum Scars | [10.5281/zenodo.19327777](https://doi.org/10.5281/zenodo.19327777) |
-| EP II: FQHE Topological Degeneracy | [10.5281/zenodo.19329295](https://doi.org/10.5281/zenodo.19329295) |
-| EP III: Helical Rydberg Scars | [10.5281/zenodo.19329297](https://doi.org/10.5281/zenodo.19329297) |
-| EP IV: Non-Commutativity | [10.5281/zenodo.19329301](https://doi.org/10.5281/zenodo.19329301) |
-| EP V: Dark Matter (Topological Phase Persistence) | [10.5281/zenodo.19329315](https://doi.org/10.5281/zenodo.19329315) |
-| EP VI: Tsirelson Bound | [10.5281/zenodo.19329317](https://doi.org/10.5281/zenodo.19329317) |
-| EP VII: Josephson Effect | [10.5281/zenodo.19638426](https://doi.org/10.5281/zenodo.19638426) |
+These DOIs are Zenodo concept DOIs, so each link always resolves to the latest
+published version.
+
+| # | Key | Title | Concept DOI |
+|---|---|---|---|
+| Main | Shin2026main | The Existence Equation: The Grammar of Persistence | [10.5281/zenodo.18639316](https://doi.org/10.5281/zenodo.18639316) |
+| EP1 | ShinEP1 | Quantum Many-Body Scars as Temporal Phase Closure of the Existence Equation | [10.5281/zenodo.19327776](https://doi.org/10.5281/zenodo.19327776) |
+| EP2 | ShinEP2 | Fractional Quantum Hall States as Spatial Phase Closure of the Existence Equation | [10.5281/zenodo.19329294](https://doi.org/10.5281/zenodo.19329294) |
+| EP3 | ShinEP3 | Helical Rydberg Scars as Mixed-Dimensional Phase Closure of the Existence Equation | [10.5281/zenodo.19329296](https://doi.org/10.5281/zenodo.19329296) |
+| EP4 | ShinEP4 | Non-Commutativity from Geometric Constraint: Projected Algebra of the Existence Equation | [10.5281/zenodo.19329300](https://doi.org/10.5281/zenodo.19329300) |
+| EP5 | ShinEP5 | Dark Matter as Topological Phase Persistence of the Existence Equation | [10.5281/zenodo.19329314](https://doi.org/10.5281/zenodo.19329314) |
+| EP6 | ShinEP6 | The Tsirelson Bound as Measurement Geometry of the Existence Equation | [10.5281/zenodo.19329316](https://doi.org/10.5281/zenodo.19329316) |
+| EP7 | ShinEP7 | Non-Relativistic Reduction of the Existence Equation: Gross–Pitaevskii as Low-Energy Limit and Falsifiable Predictions | [10.5281/zenodo.19638425](https://doi.org/10.5281/zenodo.19638425) |
 
 ---
 
