@@ -157,12 +157,19 @@ with emergent chirality (±q degeneracy). No symmetry imposed.
 **Concept DOI:** [10.5281/zenodo.19329300](https://doi.org/10.5281/zenodo.19329300)
 
 **Claim:** Projected operators [O₀, O₁] ≠ 0 despite [X₀, X₁] = 0.
-Eigenvalues of i[O₀, O₁] are exactly integers: angular momentum
-quantization from geometry, not SU(2).
+Eigenvalues of C = i[O₀, O₁] are exactly integers for L = 3–12,
+with Pell–Lucas trace law Tr(C²) = L·Q_{L−2}. The emergent algebra
+is not su(2); it is forced by the constraint projection.
 
 | File | Description |
 |---|---|
-| `algebra_constraint_paper.py` | L=3–10; integer spectrum; random projection control (proves constraint specificity) |
+| `algebra_constraint_paper.py` | Fig 1 + Tables I–II: integer spectrum; random projection control |
+| `test_L10_full.py` | Fig 2: full L=10 spectrum |
+| `test_casimir_convergence.py` | Figs 3–4: Casimir diagnostic and scaling; proves NOT su(2) |
+| `test_leo_deep_v2.py` | Text verification for deep algebra checks |
+| `test_pell_verify.py` | Pell–Lucas check: L=7,9 exact Tr(C²) |
+| `test_pell_L11_L12.py` | Large-L sparse check: L=11,12 |
+| `test_transfer_matrix_proof.py` | Transfer-matrix proof: 5 lemmas, L=3–12 exact Tr(C²)=L·Q_{L−2} |
 
 ### `ep5/` — Dark Matter as Topological Phase Persistence
 
@@ -222,7 +229,7 @@ The algebra is not assumed. It is FORCED by the constraint.
 | I | 1D chain | NN exclusion + flip | PXP Hamiltonian, quantum scars |
 | II | 2D torus | NN exclusion + hop + Peierls | FQHE topological degeneracy, anyon braiding |
 | III | 2-leg ladder | Blockade + rung exclusion + flip | Helical scars, emergent chirality |
-| IV | 2-leg ladder | Same + projected operators | Non-commutativity, integer spectrum |
+| IV | 2-leg ladder | Constraint projection + commutator | Non-commutativity, integer spectrum, Pell–Lucas trace law |
 | V | 2048² continuum | ED vortex + damped relaxation | Amplitude-phase decoupling → dark matter; flat rotation curve (flatness 0.82) |
 | VI | Measurement | Binary outcomes + shared field | Tsirelson bound 2√2 |
 | VII | 1D continuum | ED equation + barrier potential | Josephson effect; GP as low-energy limit |
@@ -238,7 +245,7 @@ published version.
 |---|---|---|---|
 | Main | Shin2026main | The Existence Equation: The Grammar of Persistence | [10.5281/zenodo.18639316](https://doi.org/10.5281/zenodo.18639316) |
 | EP1 | ShinEP1 | Quantum Many-Body Scars as Temporal Phase Closure of the Existence Equation | [10.5281/zenodo.19327776](https://doi.org/10.5281/zenodo.19327776) |
-| EP2 | ShinEP2 | Fractional Quantum Hall States as Spatial Phase Closure of the Existence Equation | [10.5281/zenodo.19329294](https://doi.org/10.5281/zenodo.19329294) |
+| EP2 | ShinEP2 | Fractional Quantum Hall--Like Sector Structure as Spatial Phase Closure of the Existence Equation | [10.5281/zenodo.19329294](https://doi.org/10.5281/zenodo.19329294) |
 | EP3 | ShinEP3 | Helical Rydberg Scars as Mixed-Dimensional Phase Closure of the Existence Equation | [10.5281/zenodo.19329296](https://doi.org/10.5281/zenodo.19329296) |
 | EP4 | ShinEP4 | Non-Commutativity from Geometric Constraint: Projected Algebra of the Existence Equation | [10.5281/zenodo.19329300](https://doi.org/10.5281/zenodo.19329300) |
 | EP5 | ShinEP5 | Dark Matter as Topological Phase Persistence of the Existence Equation | [10.5281/zenodo.19329314](https://doi.org/10.5281/zenodo.19329314) |
@@ -263,6 +270,9 @@ cd ep2 && python fqhe_total_proof.py
 cd ep2 && python fqhe_anyon_test4.py
 cd ep3 && python helix_constraint_paper.py
 cd ep4 && python algebra_constraint_paper.py
+cd ep4 && python test_L10_full.py
+cd ep4 && python test_casimir_convergence.py
+cd ep4 && python test_transfer_matrix_proof.py
 cd ep6 && python tsirelson_origin.py
 cd ep7 && python josephson_ed_final.py
 cd axiom && python axiom1.1_divergence_test.py
