@@ -35,6 +35,7 @@ existence-equation/
 ├── ep5/           Evidence Paper V   — Dark matter as topological phase persistence
 ├── ep6/           Evidence Paper VI  — Tsirelson bound (Bell inequality)
 ├── ep7/           Evidence Paper VII — Josephson effect (GP as low-energy ED)
+├── ep8/           Evidence Paper VIII — High-drive vortex response (regime hierarchy)
 │
 └── README.md      This file
 ```
@@ -212,6 +213,22 @@ barrier potential, with no GP assumption required.
 | `josephson_ed_final.py` | DC Josephson (sin fit), AC Josephson (linear frequency response), temporal phase gradient channel; 512-point 1D lattice |
 | `ep7_figures.py` | Dispersion relation and regime map figures for publication |
 
+### `ep8/` — High-Drive Vortex Response: Regime Hierarchy without Strong-Field Machinery
+
+**Concept DOI:** [10.5281/zenodo.20118592](https://doi.org/10.5281/zenodo.20118592)
+
+**Claim:** A localized topological closure (vortex) driven by a high-momentum
+same-field wave packet produces a four-regime response hierarchy — depletion,
+phase ordering, structured emission, topological rearrangement — from the
+cross-response algebra of the single nonlinear term −α|Ψ|²Ψ, without any
+coupling Hamiltonian, Volkov states, or strong-field approximation.
+
+| File | Description |
+|---|---|
+| `08_vortex_2d_v3_2.py` | Canonical ε-scan: 10 drive strengths on 256² (L=60); nonlinear residuals, G_k Goldilocks score, Z_Φ phase order; Figures 1–6 and Table I |
+| `09_robustness_v4_0.py` | Geometry variation: 5 (k₀, σ) configs; hierarchy robustness test; Table II |
+| `10_resolution_512_v1_2.py` | Matched-registration convergence: 512² (L=120) at same Δx; Ĝ_k and Z_Φ stable to ≤2%; Figure 7 and Table III |
+
 ---
 
 ## The Logic
@@ -233,6 +250,7 @@ The algebra is not assumed. It is FORCED by the constraint.
 | V | 2048² continuum | ED vortex + damped relaxation | Amplitude-phase decoupling → dark matter; flat rotation curve (flatness 0.82) |
 | VI | Measurement | Binary outcomes + shared field | Tsirelson bound 2√2 |
 | VII | 1D continuum | ED equation + barrier potential | Josephson effect; GP as low-energy limit |
+| VIII | 2D continuum | ED vortex + high-momentum packet | Four-regime hierarchy; cross-response algebra; no SFA machinery |
 
 ---
 
@@ -251,6 +269,7 @@ published version.
 | EP5 | ShinEP5 | Dark Matter as Topological Phase Persistence of the Existence Equation | [10.5281/zenodo.19329314](https://doi.org/10.5281/zenodo.19329314) |
 | EP6 | ShinEP6 | The Tsirelson Bound as Measurement Geometry of the Existence Equation | [10.5281/zenodo.19329316](https://doi.org/10.5281/zenodo.19329316) |
 | EP7 | ShinEP7 | Non-Relativistic Reduction of the Existence Equation: Gross–Pitaevskii as Low-Energy Limit and Falsifiable Predictions | [10.5281/zenodo.19638425](https://doi.org/10.5281/zenodo.19638425) |
+| EP8 | ShinEP8 | High-Drive Response of a Topological Closure in the Existence Equation: Regime Hierarchy without Strong-Field Machinery | [10.5281/zenodo.20118592](https://doi.org/10.5281/zenodo.20118592) |
 
 ---
 
@@ -275,6 +294,9 @@ cd ep4 && python test_casimir_convergence.py
 cd ep4 && python test_transfer_matrix_proof.py
 cd ep6 && python tsirelson_origin.py
 cd ep7 && python josephson_ed_final.py
+cd ep8 && python 08_vortex_2d_v3_2.py
+cd ep8 && python 09_robustness_v4_0.py
+cd ep8 && python 10_resolution_512_v1_2.py
 cd axiom && python axiom1.1_divergence_test.py
 ```
 
