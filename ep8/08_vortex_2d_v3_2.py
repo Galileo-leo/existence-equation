@@ -47,7 +47,7 @@ from scipy.signal import find_peaks
 from scipy.interpolate import interp1d
 from time import time
 
-VERSION = "v3.2"
+VERSION = "v3.4"
 DPI = 600
 
 # ============================================================
@@ -85,8 +85,11 @@ gamma_relax  = 0.4
 n_steps      = 8000
 record_every = 40
 
-# REFINED ε SCAN (Leo recommendation)
-eps_values = [0.25, 0.30, 0.35, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00]
+# REFINED ε SCAN v3.3 — uniform fine grid to pin regime peaks
+#   Coarse v3.2 grid (Δε=0.10 above 0.4) left ε_coh, ε_em, ε_topo
+#   grid-limited. Uniform Δε=0.02 resolves the four thresholds and
+#   makes the scale-free intensity ratios defensible.
+eps_values = [round(0.20 + 0.02 * i, 2) for i in range(41)]  # 0.20 .. 1.00
 
 weak_scale = 0.1
 alpha_weak = weak_scale * alpha
@@ -242,6 +245,36 @@ def current_density(psi):
     jy = np.imag(np.conj(psi) * gy)
     return jx, jy
 
+def compute_energy_density(psi, pdot, lam_val, alpha_val):
+    """ED energy density: temporal + gradient + potential (Mexican hat)."""
+    gx, gy = gradient_2d(psi)
+    A2 = np.abs(psi)**2
+    E_temporal = 0.5 * np.abs(pdot)**2 / c2
+    E_grad = 0.5 * (np.abs(gx)**2 + np.abs(gy)**2)
+    E_pot = -0.5 * lam_val * A2 + 0.25 * alpha_val * A2**2
+    return E_temporal + E_grad + E_pot
+
+def plaquette_winding_census(psi):
+    """Per-plaquette winding census (defect counting).
+
+    Sums the gauge-invariant phase differences around each elementary
+    plaquette; rounds to integer winding. Returns (n_plus, n_minus, net).
+    This distinguishes a true global winding change from a measurement loop
+    that merely encloses several defects of opposite sign.
+    """
+    ph = np.angle(psi)
+    d1 = np.angle(np.exp(1j * (np.roll(ph, -1, axis=0) - ph)))
+    d2 = np.angle(np.exp(1j * (
+        np.roll(np.roll(ph, -1, axis=0), -1, axis=1) - np.roll(ph, -1, axis=0))))
+    d3 = np.angle(np.exp(1j * (
+        np.roll(ph, -1, axis=1) - np.roll(np.roll(ph, -1, axis=0), -1, axis=1))))
+    d4 = np.angle(np.exp(1j * (ph - np.roll(ph, -1, axis=1))))
+    w_plaq = np.rint((d1 + d2 + d3 + d4) / (2 * np.pi)).astype(int)
+    n_plus = int(np.sum(w_plaq > 0))
+    n_minus = int(np.sum(w_plaq < 0))
+    net = int(np.sum(w_plaq))
+    return n_plus, n_minus, net
+
 # ============================================================
 # 4. PREPARE VORTEX
 # ============================================================
@@ -342,6 +375,12 @@ print(f"    done ({time()-t0:.1f}s)")
 
 ref_field = r_vac['psi_f']
 
+# --- closure energy baseline (for chi = E_packet / E_closure) ---
+E_vortex_density = compute_energy_density(psi_v, pdot_v, lam, alpha)
+E_vac_density    = compute_energy_density(psi_vac, pdot_zero, lam, alpha)
+E_closure = float(np.sum((E_vortex_density - E_vac_density)[R < R_bound]) * dx * dy)
+print(f"  E_closure (bound-sector excess energy) = {E_closure:.4f}")
+
 # ============================================================
 # 8. ε SCAN
 # ============================================================
@@ -366,9 +405,6 @@ for eps in eps_values:
     t0 = time()
     r_full = evolve_2d(psi0, pdot0, lam, alpha, n_steps, f"full_{eps}")
     tf = time() - t0
-
-    # Weak control
-    r_weak = evolve_2d(psi0, pdot0, lam_weak, alpha_weak, n_steps, f"weak_{eps}")
 
     # Packet alone
     psi_pkt = psi_vac + psi_em
@@ -418,14 +454,32 @@ for eps in eps_values:
     w_after = measure_winding(r_full['psi_f'], core_xf, core_yf, 5.0)
     core_shift = np.sqrt((core_xf - core_x0)**2 + (core_yf - core_y0)**2)
 
-    # Z_Φ and ΔN
+    # Z_Φ: report dynamical maximum (true phase-ordering peak), not final value
     Zb_final = float(r_full['Zb'][-1])
-    dNb = float(r_full['Nb'][-1] - r_full['Nb'][0])
+    Zb_max   = float(np.max(r_full['Zb']))
+    t_Zb_max = float(r_full['t'][int(np.argmax(r_full['Zb']))])
 
-    # === GOLDILOCKS SCORES ===
+    # ΔN_bound from EXACT initial/final norms in the bound region
+    bm_bound = R < R_bound
+    Nb_init_exact  = float(np.sum(np.abs(psi0[bm_bound])**2) * dx * dy)
+    Nb_final_exact = float(np.sum(np.abs(r_full['psi_f'][bm_bound])**2) * dx * dy)
+    dNb = Nb_final_exact - Nb_init_exact
+
+    # Packet energy ratio chi = E_packet / E_closure (second calibration axis)
+    E_packet_density = (compute_energy_density(psi_vac + psi_em, pdot_em, lam, alpha)
+                        - E_vac_density)
+    E_packet = float(np.sum(E_packet_density) * dx * dy)
+    chi = E_packet / (abs(E_closure) + 1e-30)
+
+    # Plaquette defect census (true topological-rearrangement diagnostic)
+    n_vort_plus, n_vort_minus, net_plaq_w = plaquette_winding_census(r_full['psi_f'])
+
+    # === GOLDILOCKS SCORES (raw + topology-masked) ===
+    G_real_raw = np.log1p(P_out)   * metrics['Q2'] / (metrics['S_norm'] + 0.01)
+    G_k_raw    = np.log1p(Pk_shell) * metrics['Q2'] / (metrics['S_norm'] + 0.01)
     W = 1.0 if abs(w_after - 1.0) < 0.1 else 0.0
-    G_real = W * np.log1p(P_out) * metrics['Q2'] / (metrics['S_norm'] + 0.01)
-    G_k    = W * np.log1p(Pk_shell) * metrics['Q2'] / (metrics['S_norm'] + 0.01)
+    G_real = W * G_real_raw
+    G_k    = W * G_k_raw
 
     print(f"    {tf:.1f}s | wind={w_after:.3f} (core shift={core_shift:.2f})")
     print(f"    Z_Φ={Zb_final:.4f} | ΔNb={dNb:.3f}")
@@ -438,25 +492,30 @@ for eps in eps_values:
 
     row = {
         'eps': eps, 'w_after': float(w_after), 'core_shift': float(core_shift),
-        'Zb_final': Zb_final, 'dNb': dNb,
+        'Zb_final': Zb_final, 'Zb_max': Zb_max, 't_Zb_max': t_Zb_max,
+        'dNb': dNb, 'Nb_init': Nb_init_exact, 'Nb_final': Nb_final_exact,
+        'chi': float(chi), 'E_packet': float(E_packet), 'E_closure': float(E_closure),
+        'n_vort_plus': n_vort_plus, 'n_vort_minus': n_vort_minus,
+        'net_plaquette_winding': net_plaq_w,
         'P_bound': P_bound, 'P_inter': P_inter, 'P_out': P_out,
         'Pk_shell': Pk_shell,
         'S_theta': metrics['S_theta'], 'S_norm': metrics['S_norm'],
         'Q2': metrics['Q2'], 'FB': metrics['FB'],
         'Side_Fwd': metrics['Side_Fwd'], 'n_lobes': metrics['n_lobes'],
+        'G_real_raw': float(G_real_raw), 'G_k_raw': float(G_k_raw),
         'G_real': float(G_real), 'G_k': float(G_k)
     }
     rows.append(row)
 
     results[eps] = {
-        'full': r_full, 'weak': r_weak, 'pkt': r_pkt,
+        'full': r_full, 'pkt': r_pkt,
         'res_psi': res_psi, 'res_rho': res_rho,
         'res_jx': res_jx, 'res_jy': res_jy, 'res_j_mag': res_j_mag,
         'P_bound': P_bound, 'P_inter': P_inter, 'P_out': P_out,
         'KX': KX_k, 'KY': KY_k, 'Pk': Pk, 'Pk_shell': Pk_shell,
         'theta_k': theta_k, 'Ptheta': Ptheta, 'metrics': metrics,
         'w_after': w_after, 'core_shift': core_shift,
-        'Zb_final': Zb_final, 'dNb': dNb,
+        'Zb_final': Zb_final, 'Zb_max': Zb_max, 'dNb': dNb, 'chi': chi,
         'G_real': G_real, 'G_k': G_k
     }
 
@@ -522,7 +581,7 @@ print("\n" + "=" * 70)
 print("REGIME BOUNDARY ANALYSIS")
 print("=" * 70)
 
-Zb_arr = np.array([results[e]['Zb_final'] for e in eps_values])
+Zb_arr = np.array([results[e]['Zb_max'] for e in eps_values])  # dynamical max
 dNb_arr = np.array([results[e]['dNb'] for e in eps_values])
 
 # Bound-sector depletion threshold: ΔN_bound = 0
